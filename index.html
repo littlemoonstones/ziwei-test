@@ -85,8 +85,6 @@
             hello: "Hello world",
             ziwei_data: null,
             fourModifications: null,
-            // ziwei_data: db.cells,
-            // fourModifications: db.fourModifications,
             birthday: {
                 y_Solar: 2000,
                 m_Solar: 1,
@@ -110,12 +108,9 @@
                 fetch(url, payLoad)
                     .then(response => response.json())
                     .then(data => {
-                        // this.test = []
-                        // this.ziwei_data = data.cells
-                        // this.fourModifications = data.fourModifications
-
-                        console.log(data)
-                            // console.log(this.test)
+                        data = JSON.parse(data.body)
+                        this.ziwei_data = data.cells
+                        this.fourModifications = data.fourModifications
                     })
             }
         },

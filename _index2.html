@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="ziwei" class="ziwei">
+        <div v-for="(ziwei, index) in ziwei_data" :id="'zw'+index" :key="'zw'+index">
+            <!-- {{ziwei}} -->
+            <div class="major">
+                <div v-for="(majorStar, index) in ziwei.majorStar" :key="'major'+index">
+                    {{ majorStar }}
+                    <span class="four" v-if="fourModifications.reverse[majorStar]">
+                        {{ fourModifications["reverse"][majorStar] }}
+                    </span>
+                </div>
+            </div>
+            <div class="minor">
+                <div v-for="(minorStar, index) in ziwei.minorStar" :key="'minor-'+index">
+                    {{ minorStar }}
+                </div>
+            </div>
+            <div class="mini">
+                <div v-for="(miniStar, index) in ziwei.miniStar" :key="'mini-'+index">
+                    {{ miniStar }}
+                </div>
+            </div>
+            <div class="star6">
+                <div v-for="(Star6, index) in ziwei.Star6" :key="'Star6-'+index">
+                    {{ Star6 }}
+                </div>
+                <span class="four" v-if="fourModifications.reverse[Star6]">
+                    {{ fourModifications["reverse"][Star6] }}
+                </span>
+            </div>
+            <div class="time">
+                {{ ziwei.earthlyBranches + ziwei.heavenlyStems }}
+            </div>
+            <div class="palace">
+                {{ ziwei.palace }}
+            </div>
+
+        </div>
+        <div id="zw-center">
+            <select v-model="birthday.y_Solar">
+                <option v-for="i in 35">{{ i+1986 }}</option>
+            </select>
+            <label for="year">年</label>
+            <select v-model="birthday.m_Solar">
+                <option v-for="i in 12">{{ i }}</option>
+            </select>
+            <label for="year">月</label>
+            <select v-model="birthday.d_Solar">
+                <option v-for="i in months[birthday.m_Solar-1]">{{ i }}</option>
+            </select>
+            <label for="year">日</label>
+            <select v-model="birthday.h_Solar">
+                <option v-for="i in 24">{{ i-1 }}</option>
+            </select>
+            <label for="year">時</label>
+            <input type="radio" value="M" v-model="birthday.g_Solar">
+            <label for="male">男</label>
+            <input type="radio" value="F" v-model="birthday.g_Solar">
+            <label for="two">女</label>
+            <div class="btn">
+                <button @click="submit">送出</button>
+            </div>
+        </div>
+        <div>
+            {{ test }}
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="https://unpkg.com/vue@next"></script>
+<script src="./js/db.js"></script>
+<script>
+    console.log(db.fourModifications.reverse['文曲'])
+    var testDB = []
+    db.cells.forEach((element, index) => {
+        element["index"] = index
+        testDB.push({
+            index,
+            Star6: element.Star6
+        })
+    });
+    console.log(testDB)
+    const Ziwei = {
+        data() {
+            return {
+                hello: "Hello world",
+                ziwei_data: db.cells,
+                fourModifications: db.fourModifications,
+                birthday: {
+                    y_Solar: 2000,
+                    m_Solar: 1,
+                    d_Solar: 1,
+                    h_Solar: 0,
+                    g_Solar: "M"
+                },
+                months: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+                test: testDB
+                    // Star6: ""
+            }
+        },
+        methods: {
+            submit() {
+                console.log(this.birthday)
+                const url = "http://localhost:3000/ziwei"
+                const payLoad = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(this.birthday)
+                }
+                fetch(url, payLoad)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.test = []
+                        this.ziwei_data = data.cells
+                        this.fourModifications = data.fourModifications
+                        data.cells.forEach((element, index) => {
+                            element["index"] = index
+                            this.test.push({
+                                index,
+                                Star6: element.Star6
+                            })
+                        });
+                        console.log(data)
+                            // console.log(this.test)
+                    })
+            }
+        },
+        onMounted() {
+
+        }
+    }
+    Vue.createApp({
+        setup() {
+            const birthday = Vue.reactive({
+                y_Solar: 2000,
+                m_Solar: 1,
+                d_Solar: 1,
+                h_Solar: 0,
+                g_Solar: "M"
+            })
+            const ziwei_data = Vue.reactive(db.cells)
+            const fourModifications = Vue.reactive(db.fourModifications)
+            const months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+            return {
+                months,
+                birthday,
+                ziwei_data,
+                fourModifications
+            };
+        }
+    }).mount("#ziwei")
+</script>

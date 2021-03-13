@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="time">
-                {{ ziwei.earthlyBranches + ziwei.heavenlyStems }}
+                {{ ziwei.earthlyBranch + ziwei.heavenlyStems }}
             </div>
             <div class="palace">
                 【{{ ziwei.palace }}】
@@ -72,6 +72,9 @@
                 <button @click="submit">送出</button>
             </div>
         </div>
+        <div v-if="lBirthday">
+            {{ lBirthday.game }} {{ lBirthday.lYear }}年{{ lBirthday.lMonth }}月{{ lBirthday.lDay }}日
+        </div>
     </div>
 </body>
 
@@ -85,6 +88,7 @@
             hello: "Hello world",
             ziwei_data: null,
             fourModifications: null,
+            lBirthday: null,
             birthday: {
                 y_Solar: 2000,
                 m_Solar: 1,
@@ -109,8 +113,10 @@
                     .then(response => response.json())
                     .then(data => {
                         data = JSON.parse(data.body)
+                        console.log(data)
                         this.ziwei_data = data.cells
-                        this.fourModifications = data.fourModifications
+                        this.fourModifications = data.fourChanges
+                        this.lBirthday = data.lBirthday
                     })
             }
         },

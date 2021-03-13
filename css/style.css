@@ -1,215 +1,220 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+  /* border: 1px solid red; */
+}
+
+.time {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  writing-mode: horizontal-tb;
+  padding: 5px;
+}
+
+.palace {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: bolder;
+  writing-mode: horizontal-tb;
+  padding: 5px;
+}
+
+.ziwei {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-gap: 5px;
+}
+
+.major div,
+.minor div,
+.mini div,
+.star6 div {
+  margin-right: 5px;
+}
+
+.major {
+  color: purple;
+}
+
+.minor {
+  color: lightgrey;
+  margin-left: auto;
+}
+
+.mini {
+  margin-left: auto;
+}
+
+.star6 {
+  color: deeppink;
+  margin-left: auto;
+}
+
+.btn {
+  display: block;
+}
+
+div[id^="zw"] {
+  writing-mode: vertical-lr;
+  height: 120px;
+  border: 1px solid black;
+  position: relative;
+  padding: 5px;
+}
+
+span.four {
+  background-color: coral;
+  padding: 5px 1px;
+  color: white;
+  border-radius: 5px;
+}
+
+#zw-center {
+  background-color: skyblue;
+  writing-mode: horizontal-tb;
+  height: auto;
+  grid-column: 2 / 4;
+  grid-row: 2 / 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+@media only screen and (max-width: 768px) {
+  * {
     /* border: 1px solid red; */
   }
-  
-  .time {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    writing-mode: horizontal-tb;
-    padding: 5px;
-  }
-  
-  .palace {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    font-weight: bolder;
-    writing-mode: horizontal-tb;
-    padding: 5px;
-  }
-  
-  .ziwei {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    grid-gap: 5px;
-  }
-  
+
   .major div,
   .minor div,
   .mini div,
   .star6 div {
-    margin-right: 5px;
+    margin-right: 1px;
   }
-  
-  .major {
-    color: purple;
+  .ziwei {
+    /* display: grid; */
+    grid-template-columns: repeat(4, 25%);
+    grid-template-rows: repeat(4, 1fr);
+    grid-gap: 0.5px;
   }
-  
-  .minor {
-    color: lightgrey;
-    margin-left: auto;
+  #zw-center {
+    flex-direction: column;
   }
-  
-  .mini{
-      margin-left: auto;
+
+  #zw-center > div {
+    margin-bottom: 10px;
   }
-  
-  .star6 {
-      color: deeppink;
-  }
-  
-  .btn {
-    display: block;
-  }
-  
-  div[id^="zw"] {
-    writing-mode: vertical-lr;
-    height: 120px;
-    border: 1px solid black;
-    position: relative;
+
+  .palace {
+    position: absolute;
+    font-size: small;
+    left: 20px;
     padding: 5px;
+    font-weight: 400;
   }
-  
+  .time {
+    font-size: small;
+  }
+  div[id^="zw"] {
+    border: 1px solid lightgray;
+    padding: 3px 1px;
+  }
+
+  .ziwei .info {
+    position: relative;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-15%);
+    text-align: center;
+    margin: 10px auto;
+    width: 100vw;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  * {
+    /* border: 1px solid skyblue; */
+  }
+  .palace {
+    font-size: smaller;
+    left: 17px;
+  }
+  .time {
+    font-size: smaller;
+  }
   span.four {
     background-color: coral;
-    padding: 5px 1px;
+    padding: 2px 0px;
     color: white;
-    border-radius: 5px;
+    border-radius: 3px;
   }
-  
-  #zw-center {
-    background-color: skyblue;
-    writing-mode: horizontal-tb;
-    height: auto;
-    grid-column: 2 / 4;
-    grid-row: 2 / 4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .container{
-      display: flex;
-      flex-direction: column;
-      overflow-y: scroll;
-  }
-  
-  @media only screen and (max-width: 768px) {
-    * {
-      /* border: 1px solid red; */
-    }
-  
-    .major div,
-    .minor div,
-    .mini div,
-    .star6 div {
-      margin-right: 1px;
-    }
-    .ziwei {
-      /* display: grid; */
-      grid-template-columns: repeat(4, 25%);
-      grid-template-rows: repeat(4, 1fr);
-      grid-gap: 0.5px;
-    }
-    #zw-center {
-      flex-direction: column;
-    }
-  
-    #zw-center > div {
-      margin-bottom: 10px;
-    }
-  
-    .palace {
-      position: absolute;
-      font-size: small;
-      left: 20px;
-      padding: 5px;
-      font-weight: 400;
-    }
-    .time {
-      font-size: small;
-    }
-    div[id^="zw"] {
-      border: 1px solid lightgray;
-      padding: 3px 1px;
-    }
-  
-    .ziwei .info {
-      position: relative;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-15%);
-      text-align: center;
-      margin: 10px auto;
-      width: 100vw;
-    }
-  
-  }
-  
-  @media only screen and (max-width: 576px){
-      *{
-          /* border: 1px solid skyblue; */
-      }
-      .palace {
-          font-size: smaller;
-        }
-        .time {
-          font-size: smaller;
-        }
-  }
-  
-  
-  #zw0 {
-    grid-column: 3;
-    grid-row: 4;
-  }
-  
-  #zw1 {
-    grid-column: 2;
-    grid-row: 4;
-  }
-  
-  #zw2 {
-    grid-column: 1;
-    grid-row: 4;
-  }
-  
-  #zw3 {
-    grid-column: 1;
-    grid-row: 3;
-  }
-  
-  #zw4 {
-    grid-column: 1;
-    grid-row: 2;
-  }
-  
-  #zw5 {
-    grid-column: 1;
-    grid-row: 1;
-  }
-  
-  #zw6 {
-    grid-column: 2;
-    grid-row: 1;
-  }
-  
-  #zw7 {
-    grid-column: 3;
-    grid-row: 1;
-  }
-  
-  #zw8 {
-    grid-column: 4;
-    grid-row: 1;
-  }
-  
-  #zw9 {
-    grid-column: 4;
-    grid-row: 2;
-  }
-  
-  #zw10 {
-    grid-column: 4;
-    grid-row: 3;
-  }
-  
-  #zw11 {
-    grid-column: 4;
-    grid-row: 4;
-  }
-  
+}
+
+#zw0 {
+  grid-column: 3;
+  grid-row: 4;
+}
+
+#zw1 {
+  grid-column: 2;
+  grid-row: 4;
+}
+
+#zw2 {
+  grid-column: 1;
+  grid-row: 4;
+}
+
+#zw3 {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+#zw4 {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+#zw5 {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+#zw6 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+#zw7 {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+#zw8 {
+  grid-column: 4;
+  grid-row: 1;
+}
+
+#zw9 {
+  grid-column: 4;
+  grid-row: 2;
+}
+
+#zw10 {
+  grid-column: 4;
+  grid-row: 3;
+}
+
+#zw11 {
+  grid-column: 4;
+  grid-row: 4;
+}

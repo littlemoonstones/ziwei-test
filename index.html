@@ -11,14 +11,14 @@
 
 <body>
     <div id="ziwei" class="ziwei">
-      <div
+       <div
         v-for="(ziwei, index) in ziwei_data"
         :id="'zw'+index"
         :key="'zw'+index"
         class="container"
       >
         <!-- {{ziwei}} -->
-        <div class="major">
+        <div class="major" v-if="ziwei.majorStar.length>0">
           <div
             v-for="(majorStar, index) in ziwei.majorStar"
             :key="'major'+index"
@@ -29,7 +29,7 @@
             </span>
           </div>
         </div>
-        <div class="minor">
+        <div class="minor" v-if="ziwei.minorStar.length>0">
           <div
             v-for="(minorStar, index) in ziwei.minorStar"
             :key="'minor-'+index"
@@ -37,12 +37,12 @@
             {{ minorStar }}
           </div>
         </div>
-        <div class="mini">
+        <div class="mini" v-if="ziwei.miniStar.length>0">
           <div v-for="(miniStar, index) in ziwei.miniStar" :key="'mini-'+index">
             {{ miniStar }}
           </div>
         </div>
-        <div class="star6">
+        <div class="star6" v-if="ziwei.Star6.length>0">
           <div v-for="(star6, index) in ziwei.Star6" :key="'star6-'+index">
             {{ star6 }}
             <span class="four" v-if="fourModifications.reverse[star6]">

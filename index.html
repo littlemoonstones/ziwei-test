@@ -15,6 +15,7 @@
         v-for="(ziwei, index) in ziwei_data"
         :id="'zw'+index"
         :key="'zw'+index"
+        class="container"
       >
         <!-- {{ziwei}} -->
         <div class="major">
@@ -50,7 +51,7 @@
           </div>
         </div>
         <div class="time">{{ ziwei.earthlyBranch + ziwei.heavenlyStems }}</div>
-        <div class="palace">【{{ ziwei.palace }}】</div>
+        <div class="palace">{{ ziwei.palace }}</div>
       </div>
       <div id="zw-center">
         <div>
@@ -84,7 +85,7 @@
         </div>
       </div>
       <div class="info" v-if="lBirthday">
-        {{ lBirthday.game }} {{ lBirthday.lYear }}年{{ lBirthday.lMonth }}月{{
+        {{ lBirthday.game }} {{ lBirthday.lYear }}年 {{ lBirthday.lMonth }}月 {{
         lBirthday.lDay }}日
       </div>
     </div>

@@ -11,72 +11,84 @@
 
 <body>
     <div id="ziwei" class="ziwei">
-        <div v-for="(ziwei, index) in ziwei_data" :id="'zw'+index" :key="'zw'+index">
-            <!-- {{ziwei}} -->
-            <div class="major">
-                <div v-for="(majorStar, index) in ziwei.majorStar" :key="'major'+index">
-                    {{ majorStar }}
-                    <span class="four" v-if="fourModifications.reverse[majorStar]">
-                        {{ fourModifications["reverse"][majorStar] }}
-                    </span>
-                </div>
-            </div>
-            <div class="minor">
-                <div v-for="(minorStar, index) in ziwei.minorStar" :key="'minor-'+index">
-                    {{ minorStar }}
-                </div>
-            </div>
-            <div class="mini">
-                <div v-for="(miniStar, index) in ziwei.miniStar" :key="'mini-'+index">
-                    {{ miniStar }}
-                </div>
-            </div>
-            <div class="star6">
-                <div v-for="(star6, index) in ziwei.Star6" :key="'star6-'+index">
-                    {{ star6 }}
-                    <span class="four" v-if="fourModifications.reverse[star6]">
-                        {{ fourModifications["reverse"][star6] }}
-                    </span>
-                </div>
-            </div>
-            <div class="time">
-                {{ ziwei.earthlyBranch + ziwei.heavenlyStems }}
-            </div>
-            <div class="palace">
-                【{{ ziwei.palace }}】
-            </div>
-
+      <div
+        v-for="(ziwei, index) in ziwei_data"
+        :id="'zw'+index"
+        :key="'zw'+index"
+      >
+        <!-- {{ziwei}} -->
+        <div class="major">
+          <div
+            v-for="(majorStar, index) in ziwei.majorStar"
+            :key="'major'+index"
+          >
+            {{ majorStar }}
+            <span class="four" v-if="fourModifications.reverse[majorStar]">
+              {{ fourModifications["reverse"][majorStar] }}
+            </span>
+          </div>
         </div>
-        <div id="zw-center">
-            <select v-model="birthday.y_Solar">
-                <option v-for="i in 35">{{ i+1986 }}</option>
-            </select>
-            <label for="year">年</label>
-            <select v-model="birthday.m_Solar">
-                <option v-for="i in 12">{{ i }}</option>
-            </select>
-            <label for="year">月</label>
+        <div class="minor">
+          <div
+            v-for="(minorStar, index) in ziwei.minorStar"
+            :key="'minor-'+index"
+          >
+            {{ minorStar }}
+          </div>
+        </div>
+        <div class="mini">
+          <div v-for="(miniStar, index) in ziwei.miniStar" :key="'mini-'+index">
+            {{ miniStar }}
+          </div>
+        </div>
+        <div class="star6">
+          <div v-for="(star6, index) in ziwei.Star6" :key="'star6-'+index">
+            {{ star6 }}
+            <span class="four" v-if="fourModifications.reverse[star6]">
+              {{ fourModifications["reverse"][star6] }}
+            </span>
+          </div>
+        </div>
+        <div class="time">{{ ziwei.earthlyBranch + ziwei.heavenlyStems }}</div>
+        <div class="palace">【{{ ziwei.palace }}】</div>
+      </div>
+      <div id="zw-center">
+        <div>
+          <select v-model="birthday.y_Solar">
+            <option v-for="i in 35">{{ i+1986 }}</option>
+          </select>
+          <label for="year">年</label>
+          <select v-model="birthday.m_Solar">
+            <option v-for="i in 12">{{ i }}</option>
+          </select>
+          <label for="year">月</label>
+        </div>
+        <div>
             <select v-model="birthday.d_Solar">
-                <option v-for="i in months[birthday.m_Solar-1]">{{ i }}</option>
+              <option v-for="i in months[birthday.m_Solar-1]">{{ i }}</option>
             </select>
-            <label for="year">日</label>
-            <select v-model="birthday.h_Solar">
-                <option v-for="i in 24">{{ i-1 }}</option>
-            </select>
-            <label for="year">時</label>
-            <input type="radio" value="M" v-model="birthday.g_Solar">
-            <label for="male">男</label>
-            <input type="radio" value="F" v-model="birthday.g_Solar">
-            <label for="two">女</label>
-            <div class="btn">
-                <button @click="submit">送出</button>
-            </div>
+          <label for="year">日</label>
+          <select v-model="birthday.h_Solar">
+            <option v-for="i in 24">{{ i-1 }}</option>
+          </select>
+          <label for="year">時</label>
         </div>
-        <div v-if="lBirthday">
-            {{ lBirthday.game }} {{ lBirthday.lYear }}年{{ lBirthday.lMonth }}月{{ lBirthday.lDay }}日
+        <div>
+          <input type="radio" value="M" v-model="birthday.g_Solar" />
+          <label for="male">男</label>
+          <input type="radio" value="F" v-model="birthday.g_Solar" />
+          <label for="two">女</label>
         </div>
+        <div class="btn">
+          <button @click="submit">送出</button>
+        </div>
+      </div>
+      <div class="info" v-if="lBirthday">
+        {{ lBirthday.game }} {{ lBirthday.lYear }}年{{ lBirthday.lMonth }}月{{
+        lBirthday.lDay }}日
+      </div>
     </div>
-</body>
+  </body>
 
 </html>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>

@@ -2,7 +2,34 @@
   box-sizing: border-box;
   /* border: 1px solid red; */
 }
-
+.benchmark{
+  padding: 4px 8px;
+  border-radius: 10px;
+  color: white;
+  background-color: darkblue;
+  animation: swing 1s ease-in-out 0s infinite alternate;
+  margin-right: 10px;
+}
+@keyframes swing{
+  from{
+    transform: translateY(20px);
+  }
+  to{
+    transform: translateY(-20px);
+  }
+}
+.blink{
+  animation: blinking .2s ease-in-out 0s infinite alternate,
+  swing 1s ease-in-out 0s infinite alternate;
+}
+@keyframes blinking{
+  from{
+    opacity: 100%;
+  }
+  to{
+    opacity: 50%;
+  }
+}
 .time {
   position: absolute;
   bottom: 0;
@@ -44,13 +71,13 @@
   margin-left: auto;
 }
 
-.mini {
-  margin-left: auto;
+.mini{
+    margin-left: auto;
 }
 
 .star6 {
-  color: deeppink;
-  margin-left: auto;
+    color: deeppink;
+    margin-left: auto;
 }
 
 .btn {
@@ -83,15 +110,26 @@ span.four {
   align-items: center;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
+.container{
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
 }
 
 @media only screen and (max-width: 768px) {
   * {
     /* border: 1px solid red; */
+  }
+  .benchmark{
+    margin-right: 0px;
+  }
+  @keyframes swing{
+    from{
+      transform: translateX(20px);
+    }
+    to{
+      transform: translateX(-20px);
+    }
   }
 
   .major div,
@@ -138,26 +176,21 @@ span.four {
     margin: 10px auto;
     width: 100vw;
   }
+
 }
 
-@media only screen and (max-width: 576px) {
-  * {
-    /* border: 1px solid skyblue; */
-  }
-  .palace {
-    font-size: smaller;
-    left: 17px;
-  }
-  .time {
-    font-size: smaller;
-  }
-  span.four {
-    background-color: coral;
-    padding: 2px 0px;
-    color: white;
-    border-radius: 3px;
-  }
+@media only screen and (max-width: 576px){
+    *{
+        /* border: 1px solid skyblue; */
+    }
+    .palace {
+        font-size: smaller;
+      }
+      .time {
+        font-size: smaller;
+      }
 }
+
 
 #zw0 {
   grid-column: 3;

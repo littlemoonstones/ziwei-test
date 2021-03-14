@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
     <title>紫微排盤</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="ziwei" class="ziwei">
-       <div
+      <div
         v-for="(ziwei, index) in ziwei_data"
         :id="'zw'+index"
         :key="'zw'+index"
@@ -54,9 +53,10 @@
         <div class="palace">{{ ziwei.palace }}</div>
       </div>
       <div id="zw-center">
+        <div v-if="benchMark" class="benchmark" :class="{blink: isBlink}">{{ benchMark }}</div>
         <div>
           <select v-model="birthday.y_Solar">
-            <option v-for="i in 35">{{ i+1986 }}</option>
+            <option v-for="i in ageRange">{{ i+1950 }}</option>
           </select>
           <label for="year">年</label>
           <select v-model="birthday.m_Solar">
@@ -65,9 +65,9 @@
           <label for="year">月</label>
         </div>
         <div>
-            <select v-model="birthday.d_Solar">
-              <option v-for="i in months[birthday.m_Solar-1]">{{ i }}</option>
-            </select>
+          <select v-model="birthday.d_Solar">
+            <option v-for="i in months[birthday.m_Solar-1]">{{ i }}</option>
+          </select>
           <label for="year">日</label>
           <select v-model="birthday.h_Solar">
             <option v-for="i in 24">{{ i-1 }}</option>
@@ -90,48 +90,64 @@
       </div>
     </div>
   </body>
-
 </html>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script src="./js/db.js"></script>
 <script>
-    var app = new Vue({
-        el: "#ziwei",
-        data: {
-            hello: "Hello world",
-            ziwei_data: null,
-            fourModifications: null,
-            lBirthday: null,
-            birthday: {
-                y_Solar: 2000,
-                m_Solar: 1,
-                d_Solar: 1,
-                h_Solar: 0,
-                g_Solar: "M"
-            },
-            months: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-        },
-        methods: {
-            submit() {
-                console.log(this.birthday)
-                const url = "https://ppbc4sgwec.execute-api.us-east-1.amazonaws.com/test/ziwei"
-                const payLoad = {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(this.birthday)
-                }
-                fetch(url, payLoad)
-                    .then(response => response.json())
-                    .then(data => {
-                        data = JSON.parse(data.body)
-                        console.log(data)
-                        this.ziwei_data = data.cells
-                        this.fourModifications = data.fourChanges
-                        this.lBirthday = data.lBirthday
-                    })
-            }
-        },
-    })
+  var app = new Vue({
+    el: "#ziwei",
+    data: {
+      hello: "Hello world",
+      ageRange: 70,
+      isBlink: false,
+      ziwei_data: null,
+      fourModifications: null,
+      lBirthday: null,
+      birthday: {
+        y_Solar: 2000,
+        m_Solar: 1,
+        d_Solar: 1,
+        h_Solar: 0,
+        g_Solar: "M",
+      },
+      information: null,
+      months: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+    },
+    methods: {
+      submit() {
+        console.log(this.birthday);
+        this.isBlink = true;
+        const url =
+          "https://ppbc4sgwec.execute-api.us-east-1.amazonaws.com/test/ziwei";
+        const payLoad = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(this.birthday),
+        };
+        fetch(url, payLoad)
+          .then((response) => response.json())
+          .then((data) => {
+            data = JSON.parse(data.body);
+            console.log(data);
+            this.ziwei_data = data.cells;
+            this.fourModifications = data.fourChanges;
+            this.lBirthday = data.lBirthday;
+            this.information = data.information;            
+          });
+      },
+    },
+    computed: {
+      benchMark: function () {
+        if (this.information) {
+          console.log("benchMark", this.information);
+          this.isBlink = false;
+          let index = this.information.SelfPalaceIndex<10 ?`0${this.information.SelfPalaceIndex}` :`${this.information.SelfPalaceIndex}`
+          return `${this.information.ziweiLoaction}-${index}-${this.information.year}`;
+        }
+        return null;
+      },
+    },
+  });
 </script>
